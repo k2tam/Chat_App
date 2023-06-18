@@ -1,3 +1,4 @@
+import 'package:chat_app/widgets/contacts_list.dart';
 import 'package:flutter/material.dart';
 
 class ScreenLayout extends StatelessWidget {
@@ -6,7 +7,7 @@ class ScreenLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
             centerTitle: false,
@@ -18,6 +19,7 @@ class ScreenLayout extends StatelessWidget {
               IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
             ],
             bottom: const TabBar(
+              indicatorSize: TabBarIndicatorSize.tab,
               tabs: [
                 Tab(
                   text: "CHAT",
@@ -27,12 +29,7 @@ class ScreenLayout extends StatelessWidget {
                 ),
               ],
             )),
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () {},
-            child: const Text("Button"),
-          ),
-        ),
+        body: const ContactsList(),
       ),
     );
   }
