@@ -1,4 +1,5 @@
 import 'package:chat_app/firebase_options.dart';
+import 'package:chat_app/modules/auth/screens/login_screen.dart';
 import 'package:chat_app/modules/welcome/welcome_screen.dart';
 import 'package:chat_app/screens/screen_layout.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {LoginScreen.routeName: (context) => const LoginScreen()},
       debugShowCheckedModeBanner: false,
       title: 'Flutter Chat App',
       // darkTheme: ThemeData.dark().copyWith(
@@ -56,8 +58,8 @@ class MyApp extends StatelessWidget {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: kColorScheme.primaryContainer,
-            foregroundColor: kColorScheme.onPrimaryContainer,
+            backgroundColor: kColorScheme.primary,
+            foregroundColor: kColorScheme.onPrimary,
           ),
         ),
         textTheme: ThemeData().textTheme.copyWith(
