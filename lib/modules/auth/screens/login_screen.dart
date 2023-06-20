@@ -1,24 +1,27 @@
-import 'package:chat_app/common/custom_button.dart';
+import 'package:chat_app/common/utils/utility.dart';
+import 'package:chat_app/common/widgets/custom_button.dart';
+import 'package:chat_app/modules/auth/controller/auth_controller.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = '/login-screen';
 
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final phoneController = TextEditingController();
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final phoneNumberController = TextEditingController();
   Country? country;
 
   @override
   void dispose() {
     super.dispose();
-    phoneController.dispose();
+    phoneNumberController.dispose();
   }
 
   void pickCountry() {
@@ -30,6 +33,18 @@ class _LoginScreenState extends State<LoginScreen> {
             country = _country;
           });
         });
+  }
+
+  void sendPhoneNumber() {
+    String phoneNumb = phoneNumberController.text.trim();
+
+    if (phoneNumb.isEmpty && country == null) {
+      showSnackBar(context, 'Please fill all your phone number info');
+    }
+
+    ref
+        .read(authControllerProvider)
+        .signInWithPhone(context, '${country!.phoneCode}$phoneNumb');
   }
 
   @override
@@ -74,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       width: screenSize.width * 0.7,
                       child: TextField(
-                        controller: phoneController,
+                        controller: phoneNumberController,
                         decoration: const InputDecoration(
                           hintText: 'phone number',
                         ),
@@ -88,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: screenSize.width * 0.3,
                 child: CustomButton(
                   text: "NEXT",
-                  onPressed: () {},
+                  onPressed: () => sendPhoneNumber(),
                 ),
               ),
               SizedBox(

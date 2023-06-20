@@ -1,9 +1,9 @@
 import 'package:chat_app/firebase_options.dart';
-import 'package:chat_app/modules/auth/screens/login_screen.dart';
 import 'package:chat_app/modules/welcome/welcome_screen.dart';
-import 'package:chat_app/screens/screen_layout.dart';
+import 'package:chat_app/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.light,
@@ -18,7 +18,7 @@ var kDarkColorScheme = ColorScheme.fromSeed(
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {LoginScreen.routeName: (context) => const LoginScreen()},
+      onGenerateRoute: (settings) => generateRoute(settings),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Chat App',
       // darkTheme: ThemeData.dark().copyWith(
