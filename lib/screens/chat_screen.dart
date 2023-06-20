@@ -55,7 +55,7 @@ class ChatScreen extends StatelessWidget {
                           fillColor: theme.colorScheme.onSecondary,
                           filled: true,
                           suffixIcon: IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.emoji_emotions_outlined,
                             ),
                             onPressed: () {},
